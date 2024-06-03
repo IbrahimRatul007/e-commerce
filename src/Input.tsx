@@ -1,9 +1,6 @@
 import React from "react";
 import { LoginProps } from "./Login";
 import { SignUpProps } from "./Signup";
-
-interface MyNewProps extends SignUpProps, LoginProps {}
-
 interface InputProps {
   placeholder: string;
   type?: string;
