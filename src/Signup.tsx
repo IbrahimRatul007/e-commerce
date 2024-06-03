@@ -1,23 +1,27 @@
-import React from "react";
-import {useForm} from 'react-hook-form'
-import Input from "./Input";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import Button from "./Button";
-import * as yup from 'yup'
-import {yupResolver} from '@hookform/resolvers/yup'
+import Input from "./Input";
+
+export interface SignUpProps {
+  userName: string;
+  password: string;
+}
 
 const Signup = () => {
-    const schema = yup.object().shape({
-        userName: yup.string().required(),
-        password: yup.string().min(4).max(20).required(),
-    })
-    
-    const{handleSubmit,register}=useForm({
-        resolver: yupResolver(schema),
-    })
-    
-    const onSubmit = ((data:{}) =>{
-        console.log(data)
-    })
+  const schema = yup.object().shape({
+    userName: yup.string().required(),
+    password: yup.string().min(4).max(20).required(),
+  });
+
+  const { handleSubmit, register } = useForm<SignUpProps>({
+    resolver: yupResolver<SignUpProps>(schema),
+  });
+
+  const onSubmit = (data: {}) => {
+    console.log(data);
+  };
 
   return (
     <div className="flex justify-around items-center sm:max-xl:h-full w-3/4 sm:max-xl:mx-auto">
@@ -31,15 +35,32 @@ const Signup = () => {
           <h1 className="text-4xl font-bold">Log in to Exclusive</h1>
           <p className="text-lg font-bold">Enter your details below</p>
         </div>
-        <form className="flex flex-col gap-8 w-full" onSubmit={handleSubmit(onSubmit)}>
-          <Input placeholder="Username" type="text" name="userName" register={register} />
-          <Input placeholder="Password" type="password" name="password"  register={register}/>
-        <div className="flex">
-        <Button text={"Log In"} color="bg-red-500" textColor="text-white" />
-        <Button text={"Forgot Password?"} color="white" textColor="text-red-500" type="button"/>
-        </div>
+        <form
+          className="flex flex-col gap-8 w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Input
+            placeholder="Username"
+            type="text"
+            name="userName"
+            register={register}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            name="password"
+            register={register}
+          />
+          <div className="flex">
+            <Button text={"Log In"} color="bg-red-500" textColor="text-white" />
+            <Button
+              text={"Forgot Password?"}
+              color="white"
+              textColor="text-red-500"
+              type="button"
+            />
+          </div>
         </form>
-
       </div>
     </div>
   );
